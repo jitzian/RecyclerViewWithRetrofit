@@ -62,7 +62,7 @@ public class Fragment2 extends Fragment {
                 .build();
 
         CheeseManager.GitHubRestInterface gitHubRestInterface = retrofit.create(CheeseManager.GitHubRestInterface.class);
-        Call<ArrayList<String>> call = gitHubRestInterface.getRepositories(GITHUB_USER);
+        Call<ArrayList<String>> call = gitHubRestInterface.getCheese(GITHUB_USER);
 
         if(call != null){
             Log.d(TAG, "CALL NOT NULL");
