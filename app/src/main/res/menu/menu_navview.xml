@@ -12,7 +12,7 @@
         <item
             android:id="@+id/menu_op_3"
             android:icon="@drawable/ic_menu"
-            android:title="Pending"/>
+            android:title="FireBase Messaging"/>
     </group>
 
     <item
@@ -22,11 +22,11 @@
             <item
                 android:id="@+id/menu_opcion_1"
                 android:icon="@drawable/ic_menu"
-                android:title="@string/opcion_1"/>
+                android:title="OP1"/>
             <item
                 android:id="@+id/menu_opcion_2"
                 android:icon="@drawable/ic_menu"
-                android:title="@string/opcion_2"/>
+                android:title="OP2"/>
         </menu>
     </item>
 </menu>

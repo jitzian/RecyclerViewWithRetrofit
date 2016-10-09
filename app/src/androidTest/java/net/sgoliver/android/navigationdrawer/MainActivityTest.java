@@ -24,7 +24,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  * @author Libin
  */
 @RunWith(AndroidJUnit4.class)
-public class CheeseListActivityTest {
+public class MainActivityTest {
 
     @Rule
 //    public ActivityTestRule<CheeseListActivity> mActivityTestRule = new ActivityTestRule<>(CheeseListActivity.class);
