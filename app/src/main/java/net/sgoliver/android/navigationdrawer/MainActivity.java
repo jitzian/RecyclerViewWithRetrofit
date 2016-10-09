@@ -10,10 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import net.sgoliver.android.navigationdrawer.fragments.Fragment1;
 import net.sgoliver.android.navigationdrawer.fragments.Fragment2;
 import net.sgoliver.android.navigationdrawer.fragments.Fragment3;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,9 +86,11 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case R.id.menu_opcion_1:
                                 Log.i("NavigationView", "SHIT 1");
+                                Toast.makeText(MainActivity.this, "SHIT 1", Toast.LENGTH_LONG).show();
                                 break;
                             case R.id.menu_opcion_2:
                                 Log.i("NavigationView", "SHIT 2");
+                                Toast.makeText(MainActivity.this, "SHIT 2", Toast.LENGTH_LONG).show();
                                 break;
                         }
 
