@@ -35,7 +35,6 @@ public class Fragment2 extends Fragment {
     private String BASE_URL = "https://gist.githubusercontent.com/";
     private String GITHUB_USER = "libinbensin";
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,7 +44,6 @@ public class Fragment2 extends Fragment {
         initRecyclerView();
         return rootView;
     }
-
 
     public void initRecyclerView() {
         Log.d(TAG, "initControls");
