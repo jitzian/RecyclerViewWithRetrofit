@@ -36,6 +36,7 @@ public class SimpleMockitoUnitTest {
     @Before
     public void init_classes() {
         when(mMockContext.getString(R.string.hello_word)).thenReturn(FAKE_STRING + " a ");
+        System.out.println(mMockContext);
 
         mSimpleClass = new SimpleClass(mMockContext);
     }
