@@ -1,6 +1,8 @@
-package net.sgoliver.android.navigationdrawer.dagger.singleton;
+package net.sgoliver.android.navigationdrawer.dagger.module;
 
 import android.app.Application;
+import android.util.Log;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -18,12 +20,14 @@ public class AppModule {
     }
 
     public AppModule(Application application){
+        Log.d(TAG, "AppModule");
         this.application = application;
     }
 
     @Provides
     @Singleton
     Application providesApplication(){
+        Log.d(TAG, "providesApplication");
         return application;
     }
 

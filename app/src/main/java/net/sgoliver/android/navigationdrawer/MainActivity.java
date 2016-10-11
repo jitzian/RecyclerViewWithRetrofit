@@ -12,24 +12,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import net.sgoliver.android.navigationdrawer.dagger.singleton.NetModule;
+import net.sgoliver.android.navigationdrawer.dagger.component.NetComponent;
 import net.sgoliver.android.navigationdrawer.fragments.Fragment1;
 import net.sgoliver.android.navigationdrawer.fragments.Fragment2;
 import net.sgoliver.android.navigationdrawer.fragments.Fragment3;
 import net.sgoliver.android.navigationdrawer.fragments.Fragment4;
 
-import javax.inject.Inject;
-
-import static android.widget.Toast.LENGTH_SHORT;
-
 public class MainActivity extends AppCompatActivity {
+
+    public static final String TAG = MainActivity.class.getName();
 
     private Toolbar appbar;
     private DrawerLayout drawerLayout;
     private NavigationView navView;
 
-    @Inject
-    NetModule netModule;
+    private NetComponent netComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,4 +135,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

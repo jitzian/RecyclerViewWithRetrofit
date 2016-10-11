@@ -3,8 +3,10 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 
 android {
+    compileOptions.incremental = false
     compileSdkVersion 24
     buildToolsVersion "24"
+
 
     defaultConfig {
         applicationId "net.sgoliver.android.navigationdrawer"
@@ -68,8 +70,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
 
-
-
     //firebase
     compile 'com.google.firebase:firebase-core:9.6.1'
     compile 'com.google.firebase:firebase-messaging:9.6.1'
@@ -78,6 +78,11 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.2'
     compile 'com.google.dagger:dagger:2.2'
     provided 'javax.annotation:jsr250-api:1.0'
+
+    //RxJava
+    compile 'io.reactivex:rxjava:1.1.2'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.1'
 
 
 }

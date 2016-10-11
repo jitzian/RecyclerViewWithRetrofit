@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.sgoliver.android.navigationdrawer.R;
-import net.sgoliver.android.navigationdrawer.dagger.singleton.AppModule;
-import net.sgoliver.android.navigationdrawer.dagger.singleton.DaggerNetComponent;
-import net.sgoliver.android.navigationdrawer.dagger.singleton.NetModule;
-import net.sgoliver.android.navigationdrawer.dagger.singleton.NetComponent;
+import net.sgoliver.android.navigationdrawer.dagger.module.AppModule;
+
+import net.sgoliver.android.navigationdrawer.dagger.module.NetModule;
+import net.sgoliver.android.navigationdrawer.dagger.component.NetComponent;
 
 public class Fragment4 extends Fragment {
     public static final String TAG = Fragment4.class.getName();
@@ -32,8 +32,6 @@ public class Fragment4 extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    //Dagger Injection
-    NetComponent netComponent;
 
 
 
@@ -69,18 +67,6 @@ public class Fragment4 extends Fragment {
         return rootView;
     }
 
-    //DaggerInit()
-    public void daggerInit(){
-        Log.d(TAG, "daggerInit");
-        netComponent = DaggerNetComponent.builder()
-                .appModule(new AppModule((Application) rootView.getContext()))
-                .netModule(new NetModule("https://api.github.com"))
-                .build();
-
-    }
-    public NetComponent getNetComponent() {
-        return netComponent;
-    }
 
 
     // TODO: Rename method, update argument and hook method into UI event
