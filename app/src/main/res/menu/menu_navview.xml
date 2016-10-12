@@ -22,11 +22,11 @@
             <item
                 android:id="@+id/menu_opcion_1"
                 android:icon="@drawable/ic_menu"
-                android:title="OP1"/>
+                android:title="Recycler View with Dagger"/>
             <item
                 android:id="@+id/menu_opcion_2"
                 android:icon="@drawable/ic_menu"
-                android:title="OP2"/>
+                android:title="Custom Behavior"/>
         </menu>
     </item>
 </menu>

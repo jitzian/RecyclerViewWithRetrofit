@@ -11,6 +11,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import retrofit2.Retrofit;
+import retrofit2.http.GET;
+import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -54,4 +56,10 @@ public class MainScreenPresenter implements MainScreenContract.Presenter {
                     }
                 });
     }
+
+    private interface PostService{
+        @GET("/posts")
+        Observable<List<Post>>getPostList();
+    }
+
 }

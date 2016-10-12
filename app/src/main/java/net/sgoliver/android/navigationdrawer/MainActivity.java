@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import net.sgoliver.android.navigationdrawer.dagger.component.NetComponent;
+import net.sgoliver.android.navigationdrawer.fragments.CustomBehaviorFragment;
 import net.sgoliver.android.navigationdrawer.fragments.Fragment1;
 import net.sgoliver.android.navigationdrawer.fragments.Fragment2;
 import net.sgoliver.android.navigationdrawer.fragments.Fragment3;
@@ -93,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_opcion_2:
-                                Log.i("NavigationView", "SHIT 2");
-                                Toast.makeText(MainActivity.this, "SHIT 2", Toast.LENGTH_LONG).show();
+                                fragment = new CustomBehaviorFragment();
+                                fragmentTransaction = true;
                                 break;
                         }
 

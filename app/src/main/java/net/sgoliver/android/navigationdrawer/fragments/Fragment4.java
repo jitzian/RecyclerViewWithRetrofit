@@ -1,23 +1,32 @@
 package net.sgoliver.android.navigationdrawer.fragments;
 
-import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-//import android.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import net.sgoliver.android.navigationdrawer.R;
-import net.sgoliver.android.navigationdrawer.dagger.module.AppModule;
+import net.sgoliver.android.navigationdrawer.adapter.PostListAdapter;
+import net.sgoliver.android.navigationdrawer.dagger.component.DaggerMainScreenComponent;
+import net.sgoliver.android.navigationdrawer.dagger.contract.MainScreenContract;
+import net.sgoliver.android.navigationdrawer.dagger.module.MainScreenModule;
+import net.sgoliver.android.navigationdrawer.dagger.component.App;
+import net.sgoliver.android.navigationdrawer.model.Post;
+import net.sgoliver.android.navigationdrawer.presenter.MainScreenPresenter;
 
-import net.sgoliver.android.navigationdrawer.dagger.module.NetModule;
-import net.sgoliver.android.navigationdrawer.dagger.component.NetComponent;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Fragment4 extends Fragment {
+import javax.inject.Inject;
+
+public class Fragment4 extends Fragment implements MainScreenContract.View{
     public static final String TAG = Fragment4.class.getName();
     View rootView;
 
@@ -33,7 +42,11 @@ public class Fragment4 extends Fragment {
     private OnFragmentInteractionListener mListener;
 
 
-
+    //RecyclerView
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    RecyclerView.Adapter adapter;
+    ArrayList<String>list;
 
     public Fragment4() {
         // Required empty public constructor
@@ -58,13 +71,44 @@ public class Fragment4 extends Fragment {
         }
     }
 
+    @Inject
+    MainScreenPresenter mainScreenPresenter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.d(TAG, "onCreateView");
         rootView = inflater.inflate(R.layout.fragment_fragment4, container, false);
+
+        initRecyclerView();
+        initDagger();
+
         return rootView;
+    }
+
+    public void initRecyclerView(){
+        Log.d(TAG, "initRecyclerView");
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_dagger);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        list = new ArrayList<>();
+
+        //prepare the adapter..
+
+    }
+
+    public void initDagger(){
+        Log.d(TAG, "initDagger");
+        DaggerMainScreenComponent.builder()
+                .netComponent(((App) getActivity().getApplicationContext()).getNetComponent())
+                .mainScreenModule(new MainScreenModule(this))
+                .build().inject(this);
+
+        //Call the method in MainPresenter to make Network Request
+        mainScreenPresenter.loadPost();
     }
 
 
@@ -85,6 +129,31 @@ public class Fragment4 extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void showPosts(List<Post> posts) {
+        Log.d(TAG, "showPosts");
+
+        for(Post obj : posts)
+            list.add(obj.getTitle());
+
+        adapter = new PostListAdapter(getActivity(), list);
+        recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void showError(String message) {
+        Log.d(TAG, "showError");
+        Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showComplete() {
+        Log.d(TAG, "showComplete");
+        Toast.makeText(getActivity(), "Complete", Toast.LENGTH_LONG).show();
+
     }
 
     public interface OnFragmentInteractionListener {
