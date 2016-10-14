@@ -23,7 +23,7 @@ import android.widget.ListView;
 
 import net.sgoliver.android.navigationdrawer.R;
 
-public class    LoadersFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class LoadersFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     public static final String TAG = LoadersFragment.class.getName();
     View rootView;
 
