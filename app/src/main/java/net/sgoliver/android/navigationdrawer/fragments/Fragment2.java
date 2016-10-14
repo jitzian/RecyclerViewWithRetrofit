@@ -53,6 +53,7 @@ public class Fragment2 extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
+        //RETROFIT
         Retrofit retrofit = new Retrofit
                 .Builder()
                 .baseUrl(BASE_URL)
