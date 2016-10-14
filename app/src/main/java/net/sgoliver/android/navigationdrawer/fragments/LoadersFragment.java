@@ -1,25 +1,40 @@
 package net.sgoliver.android.navigationdrawer.fragments;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import net.sgoliver.android.navigationdrawer.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link LoadersFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link LoadersFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class LoadersFragment extends Fragment {
+public class    LoadersFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     public static final String TAG = LoadersFragment.class.getName();
+    View rootView;
+
+    private static final String[] PROJECTION = { ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME };
+    private static final int PERMISSION_CONTACTS = 200;
+    private static int LOADER_CONTACTS = 100;
+
+    private SimpleCursorAdapter adapter;
+    ListView listView;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -66,7 +81,25 @@ public class LoadersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_loaders, container, false);
+        Log.d(TAG, "onCreateView");
+        rootView = inflater.inflate(R.layout.fragment_loaders, container, false);
+
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[] { Manifest.permission.READ_CONTACTS }, PERMISSION_CONTACTS);
+        } else {
+            getLoaderManager().initLoader(LOADER_CONTACTS, null, this);
+        }
+
+        String[] from = { ContactsContract.Contacts.DISPLAY_NAME };
+        int[] to = { android.R.id.text1 };
+
+        listView = (ListView) rootView.findViewById(R.id.listView);
+
+
+        adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_1, null, from, to, 0);
+        listView.setAdapter(adapter);
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -87,6 +120,30 @@ public class LoadersFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.d(TAG, "onCreateLoader");
+        if (id == LOADER_CONTACTS) {
+            return new CursorLoader(getActivity(), ContactsContract.Contacts.CONTENT_URI, PROJECTION, null, null, null);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.d(TAG, "onLoadFinished");
+        adapter.swapCursor(data);
+        adapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        Log.d(TAG, "onLoaderReset");
+        adapter.swapCursor(null);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -100,5 +157,17 @@ public class LoadersFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.d(TAG, "onRequestPermissionsResult");
+        switch (requestCode) {
+            case PERMISSION_CONTACTS:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getLoaderManager().initLoader(LOADER_CONTACTS, null, this);
+                }
+                break;
+        }
     }
 }

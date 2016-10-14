@@ -3,6 +3,7 @@
     package="net.sgoliver.android.navigationdrawer" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <application
         android:allowBackup="true"

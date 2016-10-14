@@ -18,6 +18,7 @@ import net.sgoliver.android.navigationdrawer.fragments.Fragment1;
 import net.sgoliver.android.navigationdrawer.fragments.Fragment2;
 import net.sgoliver.android.navigationdrawer.fragments.Fragment3;
 import net.sgoliver.android.navigationdrawer.fragments.Fragment4;
+import net.sgoliver.android.navigationdrawer.fragments.LoadersFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -95,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case R.id.menu_opcion_2:
                                 fragment = new CustomBehaviorFragment();
+                                fragmentTransaction = true;
+                                break;
+                            case R.id.menu_opcion_3:
+                                fragment = new LoadersFragment();
                                 fragmentTransaction = true;
                                 break;
                         }
