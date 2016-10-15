@@ -21,6 +21,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".MainActivity2"/>
+
         <!--Firebase Messaging Configuration-->
         <service
             android:name="net.sgoliver.android.navigationdrawer.FirebaseMessaging.MyFirebaseMessagingService">

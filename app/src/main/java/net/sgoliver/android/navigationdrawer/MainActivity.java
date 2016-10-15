@@ -1,5 +1,6 @@
 package net.sgoliver.android.navigationdrawer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -101,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.menu_opcion_3:
                                 fragment = new LoadersFragment();
                                 fragmentTransaction = true;
+                                break;
+                            case R.id.menu_opcion_4:
+                                Log.d(TAG, "OP4");
+                                startActivity(new Intent(MainActivity.this, MainActivity2.class));
                                 break;
                         }
 

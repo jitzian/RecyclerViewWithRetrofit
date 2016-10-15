@@ -126,8 +126,6 @@ public class LoadersFragment extends Fragment implements LoaderManager.LoaderCal
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
-                Log.d(TAG, parent.toString());
-                Log.d(TAG, view.toString());
                 Log.d(TAG, (((TextView) view.findViewById(android.R.id.text1)).getText()).toString());
 
                 Handler handler = new Handler(){
@@ -144,10 +142,8 @@ public class LoadersFragment extends Fragment implements LoaderManager.LoaderCal
                 bundle.putString("selectedItem", (((TextView) view.findViewById(android.R.id.text1)).getText()).toString());
                 message.setData(bundle);
                 handler.sendMessageDelayed(message, 3000);
-
             }
         });
-
     }
 
 
@@ -172,7 +168,6 @@ public class LoadersFragment extends Fragment implements LoaderManager.LoaderCal
         Log.d(TAG, "onLoadFinished");
         adapter.swapCursor(data);
         adapter.notifyDataSetChanged();
-
     }
 
     @Override
