@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -19,7 +21,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import net.sgoliver.android.navigationdrawer.R;
 
@@ -113,6 +118,38 @@ public class LoadersFragment extends Fragment implements LoaderManager.LoaderCal
     public void onAttach(Context context) {
         super.onAttach(context);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
+                Log.d(TAG, parent.toString());
+                Log.d(TAG, view.toString());
+                Log.d(TAG, (((TextView) view.findViewById(android.R.id.text1)).getText()).toString());
+
+                Handler handler = new Handler(){
+                    @Override
+                    public void handleMessage(Message message) {
+                        Bundle bundle = message.getData();
+                        Log.d(TAG, bundle.get("selectedItem").toString());
+//                        bundle.get("selectedItem");
+                        ((TextView) view.findViewById(android.R.id.text1)).setText((((TextView) view.findViewById(android.R.id.text1)).getText()).toString() + " - " + "CHANGED");
+                    }
+                };
+                Message message = new Message();
+                Bundle bundle = new Bundle();
+                bundle.putString("selectedItem", (((TextView) view.findViewById(android.R.id.text1)).getText()).toString());
+                message.setData(bundle);
+                handler.sendMessageDelayed(message, 3000);
+
+            }
+        });
+
+    }
+
 
     @Override
     public void onDetach() {
