@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import net.sgoliver.android.navigationdrawer.dagger.component.NetComponent;
 import net.sgoliver.android.navigationdrawer.fragments.CustomBehaviorFragment;
@@ -105,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case R.id.menu_opcion_4:
                                 Log.d(TAG, "OP4");
-                                startActivity(new Intent(MainActivity.this, MainActivity2.class));
+                                startActivity(new Intent(MainActivity.this, CustomViewIconTextTabsActivity.class));
                                 break;
                         }
 

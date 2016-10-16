@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.RadioGroup;
 import net.sgoliver.android.navigationdrawer.R;
 
 /**
@@ -23,6 +23,7 @@ public class TabFragment1 extends Fragment {
 
     public static final String TAG = TabFragment1.class.getName();
     View rootView;
+    RadioGroup radioAudiModel;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,11 +73,41 @@ public class TabFragment1 extends Fragment {
         // Inflate the layout for this fragment
         Log.d(TAG, "onCreateView");
         rootView = inflater.inflate(R.layout.fragment_tab_fragment1, container, false);
+        initControls();
         return rootView;
     }
 
+    public void initControls(){
+        Log.d(TAG, "initControls");
+        radioAudiModel = (RadioGroup) rootView.findViewById(R.id.radioAudiModel);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+
+        radioAudiModel.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.radioButtonA1){
+                    Log.d(TAG, "radioButtonA1");
+                    mListener.onFragmentInteraction("A1");
+                } else if(checkedId == R.id.radioButtonA3){
+                    Log.d(TAG, "radioButtonA3");
+                    mListener.onFragmentInteraction("A3");
+                } else if(checkedId == R.id.radioButtonA4){
+                    Log.d(TAG, "radioButtonA4");
+                    mListener.onFragmentInteraction("A4");
+                }
+
+            }
+        });
+
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(String uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
@@ -85,12 +116,13 @@ public class TabFragment1 extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mListener = (OnFragmentInteractionListener) context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+//        mListener = null;
     }
 
     /**
@@ -105,6 +137,8 @@ public class TabFragment1 extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(String uri);
+
+
     }
 }

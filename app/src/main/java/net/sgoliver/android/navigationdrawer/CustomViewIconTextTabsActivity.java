@@ -1,5 +1,9 @@
 package net.sgoliver.android.navigationdrawer;
 
+import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,11 +20,15 @@ import net.sgoliver.android.navigationdrawer.fragments.TabFragment1;
 import net.sgoliver.android.navigationdrawer.fragments.TabFragment2;
 import net.sgoliver.android.navigationdrawer.fragments.TabFragment3;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity2 extends AppCompatActivity {
-    public static final String TAG = MainActivity2.class.getName();
+public class CustomViewIconTextTabsActivity extends AppCompatActivity implements
+        TabFragment1.OnFragmentInteractionListener,
+        TabFragment2.OnFragmentInteractionListener{
+    public static final String TAG = CustomViewIconTextTabsActivity.class.getName();
 
     /****
      *This Activity is supposed to Manage Loopers, Broadcast Receivers and handlers between
@@ -77,12 +85,45 @@ public class MainActivity2 extends AppCompatActivity {
      * Adding fragments to ViewPager
      * @param viewPager
      */
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new TabFragment1(), "ONE");
         adapter.addFrag(new TabFragment2(), "TWO");
         adapter.addFrag(new TabFragment3(), "THREE");
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void onFragmentInteraction(String uri) {
+        Log.d(TAG, " ------- onFragmentInteraction:: " + uri);
+        TabFragment2 tabFragment2 = (TabFragment2) getSupportFragmentManager().getFragments().get(1);
+        Log.d(TAG, ":" + tabFragment2.getTag());
+        tabFragment2.setCarChoice(uri);
+
+//        class LooperThread extends Thread{
+//            public Handler handler;
+//            @Override
+//            public void run() {
+//                super.run();
+//                Looper.prepare();
+//                handler = new Handler(){
+//                    @Override
+//                    public void handleMessage(Message msg) {
+//                        super.handleMessage(msg);
+//                        Log.d(TAG, msg.toString());
+//                    }
+//                };
+//                Looper.loop();
+//            }
+//        }
+
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

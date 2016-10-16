@@ -3,13 +3,18 @@ package net.sgoliver.android.navigationdrawer.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import net.sgoliver.android.navigationdrawer.R;
+
+import static net.sgoliver.android.navigationdrawer.R.id.container;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +27,7 @@ import net.sgoliver.android.navigationdrawer.R;
 public class TabFragment2 extends Fragment {
     public static final String TAG = TabFragment2.class.getName();
     View rootView;
+    EditText editTextCarChoice;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -70,7 +76,70 @@ public class TabFragment2 extends Fragment {
         // Inflate the layout for this fragment
         Log.d(TAG, "onCreateView");
         rootView = inflater.inflate(R.layout.fragment_tab_fragment2, container, false);
+        editTextCarChoice = (EditText) rootView.findViewById(R.id.editTextCarChoice);
+
+        if(var == null){
+            Log.d(TAG, "VAR NO ES NULL: " + var);
+            editTextCarChoice.setText("Initial Text");
+
+        }else{
+            Log.d(TAG, "VAR ES NULL: " + var);
+            editTextCarChoice.setText(var);
+
+        }
+
+
+        rootView.setTag("TabFragment2");
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mListener = (OnFragmentInteractionListener) getActivity();
+    }
+
+    @Override
+    public void onStart() {
+        Log.d(TAG, "onStart");
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        Log.d(TAG, "onResume");
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        Log.d(TAG, "onPause");
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        Log.d(TAG, "onStop");
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.d(TAG, "onDestroyView");
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d(TAG, "onDestroy");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onViewCreated");
+        super.onViewCreated(view, savedInstanceState);
+//        editTextCarChoice = (EditText) rootView.findViewById(R.id.editTextCarChoice);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -82,13 +151,17 @@ public class TabFragment2 extends Fragment {
 
     @Override
     public void onAttach(Context context) {
+        Log.d(TAG, "onAttach");
         super.onAttach(context);
+        mListener = (OnFragmentInteractionListener) context;
     }
+
 
     @Override
     public void onDetach() {
+        Log.d(TAG, "onDetach");
         super.onDetach();
-        mListener = null;
+//        mListener = null;
     }
 
     /**
@@ -105,4 +178,11 @@ public class TabFragment2 extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+    private String var;
+    public void setCarChoice(String choice){
+        Log.d(TAG, "setCarChoice: " + choice);
+        Log.d(TAG, "setCarChoice:: " + editTextCarChoice);
+        editTextCarChoice.setText(choice);
+    }
+
 }
