@@ -4,9 +4,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import net.sgoliver.android.navigationdrawer.R;
 
@@ -21,6 +23,7 @@ import net.sgoliver.android.navigationdrawer.R;
 public class TabFragment3 extends Fragment {
     public static final String TAG = TabFragment3.class.getName();
     View rootView;
+    TextView txtView;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -57,6 +60,7 @@ public class TabFragment3 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -67,7 +71,9 @@ public class TabFragment3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.d(TAG, "onCreateView");
         rootView = inflater.inflate(R.layout.fragment_tab_fragment3, container, false);
+        txtView = (TextView) rootView.findViewById(R.id.txtView);
         return rootView;
     }
 
@@ -81,24 +87,16 @@ public class TabFragment3 extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+//        mListener = (OnFragmentInteractionListener) context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+        Log.d(TAG, "onDetach");
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

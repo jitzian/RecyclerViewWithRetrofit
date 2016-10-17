@@ -1,6 +1,7 @@
 package net.sgoliver.android.navigationdrawer.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import net.sgoliver.android.navigationdrawer.R;
+import net.sgoliver.android.navigationdrawer.service.MessageService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,7 +100,7 @@ public class TabFragment1 extends Fragment {
                     mListener.onFragmentInteraction("A3");
                 } else if(checkedId == R.id.radioButtonA4){
                     Log.d(TAG, "radioButtonA4");
-                    mListener.onFragmentInteraction("A4");
+                    getActivity().startService(new Intent(getActivity(), MessageService.class));
                 }
 
             }
@@ -122,7 +124,7 @@ public class TabFragment1 extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-//        mListener = null;
+        mListener = null;
     }
 
     /**

@@ -25,18 +25,33 @@
 
         <!--Firebase Messaging Configuration-->
         <service
-            android:name="net.sgoliver.android.navigationdrawer.FirebaseMessaging.MyFirebaseMessagingService">
+            android:name="net.sgoliver.android.navigationdrawer.FirebaseMessaging.MyFirebaseMessagingService"
+            android:exported="true"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <service
-            android:name="net.sgoliver.android.navigationdrawer.FirebaseMessaging.MyFirebaseInstanceIDService">
+            android:name="net.sgoliver.android.navigationdrawer.FirebaseMessaging.MyFirebaseInstanceIDService"
+            android:exported="true"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
+        <service android:name=".service.MessageService"
+            android:enabled="true"
+            android:exported="true"/>
+
+        <receiver android:name=".broadcast.MessageReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="this_is_happeing"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 
