@@ -106,6 +106,12 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d(TAG, "OP4");
                                 startActivity(new Intent(MainActivity.this, CustomViewIconTextTabsActivity.class));
                                 break;
+
+                            //Data Binding
+                            case R.id.data_binding:
+                                Log.d(TAG, "Data Bdindind");
+
+
                         }
 
                         if(fragmentTransaction) {

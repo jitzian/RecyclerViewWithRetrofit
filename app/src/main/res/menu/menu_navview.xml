@@ -13,11 +13,16 @@
             android:id="@+id/menu_op_3"
             android:icon="@drawable/ic_menu"
             android:title="FireBase Messaging"/>
+        <item
+            android:id="@+id/data_binding"
+            android:icon="@drawable/ic_menu"
+            android:title="Data Binding"
+            />
     </group>
 
     <item
         android:id="@+id/navigation_subheader"
-        android:title="@string/otras_opciones">
+        android:title="@string/other_stuff">
         <menu>
             <item
                 android:id="@+id/menu_opcion_1"

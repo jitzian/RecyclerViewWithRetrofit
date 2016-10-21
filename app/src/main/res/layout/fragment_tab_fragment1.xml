@@ -37,6 +37,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/radioButtonA4"
             android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Start Local Bind Service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButtonBindService"
+            android:layout_weight="1" />
+
     </RadioGroup>
 
 

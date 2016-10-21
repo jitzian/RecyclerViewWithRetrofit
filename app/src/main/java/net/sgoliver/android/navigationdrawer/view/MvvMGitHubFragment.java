@@ -1,32 +1,25 @@
-package net.sgoliver.android.navigationdrawer.fragments;
+package net.sgoliver.android.navigationdrawer.view;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import net.sgoliver.android.navigationdrawer.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TabFragment3.OnFragmentInteractionListener} interface
+ * {@link MvvMGitHubFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TabFragment3#newInstance} factory method to
+ * Use the {@link MvvMGitHubFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
- * This fragment will display a RV thru REST using retrofit
- *
  */
-public class TabFragment3 extends Fragment {
-    public static final String TAG = TabFragment3.class.getName();
-    View rootView;
-    TextView txtView;
+public class MvvMGitHubFragment extends Fragment {
+    public static final String TAG = MvvMGitHubFragment.class.getName();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,21 +31,13 @@ public class TabFragment3 extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public TabFragment3() {
+    public MvvMGitHubFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TabFragment3.
-     */
     // TODO: Rename and change types and number of parameters
-    public static TabFragment3 newInstance(String param1, String param2) {
-        TabFragment3 fragment = new TabFragment3();
+    public static MvvMGitHubFragment newInstance(String param1, String param2) {
+        MvvMGitHubFragment fragment = new MvvMGitHubFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,7 +48,6 @@ public class TabFragment3 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -74,10 +58,7 @@ public class TabFragment3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.d(TAG, "onCreateView");
-        rootView = inflater.inflate(R.layout.fragment_tab_fragment3, container, false);
-        txtView = (TextView) rootView.findViewById(R.id.txtView);
-        return rootView;
+        return inflater.inflate(R.layout.fragment_mvv_mgit_hub, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -90,13 +71,11 @@ public class TabFragment3 extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        mListener = (OnFragmentInteractionListener) context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.d(TAG, "onDetach");
         mListener = null;
     }
 

@@ -1,9 +1,12 @@
 package net.sgoliver.android.navigationdrawer.fragments;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import net.sgoliver.android.navigationdrawer.R;
+import net.sgoliver.android.navigationdrawer.service.LocalService;
 import net.sgoliver.android.navigationdrawer.service.MessageService;
 
 /**
@@ -100,13 +104,46 @@ public class TabFragment1 extends Fragment {
                     mListener.onFragmentInteraction("A3");
                 } else if(checkedId == R.id.radioButtonA4){
                     Log.d(TAG, "radioButtonA4");
+//                    new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            getActivity().startService(new Intent(getActivity(), MessageService.class));
+//                        }
+//                    }).start();
                     getActivity().startService(new Intent(getActivity(), MessageService.class));
+                }else if(checkedId == R.id.radioButtonBindService){
+                    Log.d(TAG, "About to start Bind Service");
+//                    getActivity().bindService(new Intent(getActivity(), mConnection, LocalService.class));
+                    Intent intent = new Intent(getActivity(), LocalService.class);
+                    getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+                    if(mBound)
+                        Log.d(TAG, "Random Number: " + String.valueOf(mService.getRandomNumbers()));
                 }
 
             }
         });
 
     }
+
+    LocalService mService;
+    boolean mBound = false;
+
+    //Defines the callbacks passed to the bindService() method for
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d(TAG, "ServiceConnection::onServiceConnected");
+            LocalService.LocalBinder binder = (LocalService.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.d(TAG, "ServiceConnection::onServiceDisconnected");
+            mBound = false;
+        }
+    };
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(String uri) {
@@ -125,6 +162,16 @@ public class TabFragment1 extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+        if(mBound){
+            getActivity().unbindService(mConnection);
+            mBound = false;
+        }
     }
 
     /**

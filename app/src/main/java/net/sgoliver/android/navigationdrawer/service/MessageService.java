@@ -37,8 +37,9 @@ public class MessageService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand");
         sendMessage();
-        return super.onStartCommand(intent, flags, startId);
-//        return START_NOT_STICKY;
+//        return super.onStartCommand(intent, flags, startId);
+//        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     public void sendMessage(){
