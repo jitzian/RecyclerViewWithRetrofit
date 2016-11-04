@@ -98,4 +98,7 @@ dependencies {
 
 
 }
+task testSomething{
+    println 'Inside testSomething'
+}
 apply plugin: 'com.google.gms.google-services'
